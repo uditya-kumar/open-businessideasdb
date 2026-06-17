@@ -1,0 +1,14 @@
+{
+  "name": "businessideas-viewer",
+  "version": "1.0.0",
+  "description": "Business Ideas DB Viewer",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Ideas — Find your next idea</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    .container {
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+
+    .header {
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 650;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .ideas-info {
+      font-size: 13px;
+      font-family: monospace;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .ideas-info span {
+      color: #374151;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 1200px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border-color: #d1d5db;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .category {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #4B7BF5;
+      background: rgba(75, 123, 245, 0.06);
+    }
+
+    .signal {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      color: #22A86A;
+      background: rgba(34, 168, 106, 0.08);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .card-title a:hover {
+      color: #4B7BF5;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .competitors {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .competitor-icons {
+      display: flex;
+    }
+
+    .competitor-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: #f3f4f6;
+      margin-left: -6px;
+    }
+
+    .competitor-icon:first-child {
+      margin-left: 0;
+    }
+
+    .competitor-names {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .tags {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      font-size: 11px;
+      color: #6b7280;
+      background: #f3f4f6;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .card-footer {
+      border-top: 1px solid #f3f4f6;
+      padding-top: 14px;
+      margin-top: auto;
+    }
+
+    .chart {
+      height: 32px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .metrics {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .metrics-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .volume {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+
+    .volume span {
+      font-size: 11px;
+      color: #9ca3af;
+      font-weight: 500;
+      margin-left: 2px;
+    }
+
+    .growth {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #22A86A;
+    }
+
+    .competition {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .competition.low { color: #22A86A; }
+    .competition.medium { color: #E09B13; }
+    .competition.high { color: #EF4444; }
+
+    .metrics-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-report {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      background: linear-gradient(180deg, #22A86A 0%, #1a8f5a 100%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-report:hover {
+      background: linear-gradient(180deg, #1a8f5a 0%, #167a4d 100%);
+    }
+
+    .btn-save {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #e5e7eb;
+      border-radius: 7px;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-save:hover {
+      background: #f9fafb;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .page-btn {
+      padding: 8px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .page-btn.active {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Find your next idea</h1>
+      <p><span id="total-count">73</span> validated opportunities with research and execution plans.</p>
+    </div>
+
+    <div class="ideas-info">
+      Showing <span id="showing-start">1</span>-<span id="showing-end">12</span> of <span id="total-ideas">73</span> ideas
+    </div>
+
+    <div class="grid" id="ideas-grid">
+      <div class="loading">Loading ideas...</div>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const totalPages = 7;
+    const perPage = 12;
+
+    function generateChartPoints() {
+      const points = [];
+      let y = 20 + Math.random() * 5;
+      for (let i = 0; i <= 10; i++) {
+        const x = (i / 10) * 100;
+        y = Math.max(3, Math.min(25, y + (Math.random() - 0.4) * 5));
+        points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      }
+      return points.join(' ');
+    }
+
+    function renderCard(idea) {
+      const chartPoints = generateChartPoints();
+      const polygonPoints = `0,28 ${chartPoints} 100,28`;
+      const detailUrl = `detail.html?slug=${encodeURIComponent(idea.slug)}`;
+
+      return `
+        <div class="card">
+          <div class="card-header">
+            <span class="category">${idea.category}</span>
+            <span class="signal">${idea.signal}</span>
+          </div>
+
+          <h3 class="card-title">
+            <a href="${detailUrl}">${idea.title}</a>
+          </h3>
+
+          <p class="card-desc">${idea.description}</p>
+
+          <div class="competitors">
+            <div class="competitor-icons">
+              ${(idea.competitors.split(', ').slice(0, 4).map((c, i) =>
+                `<img class="competitor-icon" src="https://www.google.com/s2/favicons?domain=${c.toLowerCase().replace(/\s/g, '')}.com&sz=32" alt="${c}" style="z-index: ${4-i}; margin-left: ${i === 0 ? '0' : '-6px'}">`
+              ).join(''))}
+            </div>
+            <span class="competitor-names">${idea.competitors}</span>
+          </div>
+
+          <div class="tags">
+            ${idea.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+
+          <div class="card-footer">
+            <div class="chart">
+              <svg viewBox="0 0 100 28" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="grad-${idea.id}" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#22A86A" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#22A86A" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="${polygonPoints}" fill="url(#grad-${idea.id})"/>
+                <polyline points="${chartPoints}" fill="none" stroke="#22A86A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <div class="metrics">
+              <div class="metrics-left">
+                <span class="volume">${idea.volume}<span>vol</span></span>
+                <span class="growth">${idea.growth}</span>
+                <span class="competition ${idea.competition.toLowerCase()}">${idea.competition}</span>
+              </div>
+              <div class="metrics-right">
+                <a href="${detailUrl}" class="btn-report">
+                  Report
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M6 3l5 5-5 5"/>
+                  </svg>
+                </a>
+                <button class="btn-save">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPagination() {
+      const pagination = document.getElementById('pagination');
+      let html = '';
+
+      html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+      }
+
+      html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}">Next →</button>`;
+
+      pagination.innerHTML = html;
+    }
+
+    async function loadIdeas(page) {
+      const grid = document.getElementById('ideas-grid');
+      grid.innerHTML = '<div class="loading">Loading ideas...</div>';
+
+      try {
+        const response = await fetch(`/api/ideas?page=${page}`);
+        const data = await response.json();
+
+        if (data.ideas && data.ideas.length > 0) {
+          grid.innerHTML = data.ideas.map(renderCard).join('');
+
+          const start = (page - 1) * perPage + 1;
+          const end = Math.min(page * perPage, 73);
+          document.getElementById('showing-start').textContent = start;
+          document.getElementById('showing-end').textContent = end;
+        } else {
+          grid.innerHTML = '<div class="loading">No ideas found</div>';
+        }
+      } catch (error) {
+        console.error('Error loading ideas:', error);
+        grid.innerHTML = '<div class="loading">Error loading ideas. Make sure the server is running.</div>';
+      }
+    }
+
+    function goToPage(page) {
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      loadIdeas(page);
+      renderPagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initial load
+    loadIdeas(1);
+    renderPagination();
+  </script>
+</body>
+</html>

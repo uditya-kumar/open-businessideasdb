@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idea Detail — Business Ideas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .detail-main h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .metrics-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 20px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #9ca3af;
+    }
+
+    .metric-value {
+      font-family: monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .metric-value.green { color: #22A86A; }
+    .metric-value.amber { color: #E09B13; }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .section-title .accent {
+      color: #22A86A;
+    }
+
+    .section-num {
+      font-family: monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+    }
+
+    .section p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .section h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    .section .sub-text {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    /* Score Cards */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .score-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .score-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .score-card-label {
+      font-family: monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+    }
+
+    .score-card-value {
+      font-family: monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .score-card-value span {
+      font-size: 11px;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .score-bar {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .score-bar-fill.green { background: #22A86A; }
+    .score-bar-fill.amber { background: #E09B13; }
+
+    .score-card-desc {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    /* Signal Card */
+    .signal-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .signal-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .signal-subreddit {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .signal-stats {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      color: #9ca3af;
+    }
+
+    .signal-stats strong {
+      color: #374151;
+    }
+
+    .signal-card h4 {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .signal-quote {
+      font-size: 13px;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    /* Competitor Cards */
+    .competitor-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .competitor-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .competitor-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .competitor-header img {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .competitor-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .competitor-domain {
+      font-family: monospace;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .competitor-card p {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .competitor-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px dashed #e5e7eb;
+      font-family: monospace;
+      font-size: 10px;
+    }
+
+    .competitor-price {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .competitor-link {
+      color: #22A86A;
+      text-decoration: none;
+    }
+
+    /* Build Steps */
+    .build-steps {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .build-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .build-step:last-child {
+      border-bottom: none;
+    }
+
+    .build-step-num {
+      font-family: monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(156, 163, 175, 0.2);
+    }
+
+    .build-step p {
+      font-size: 14px;
+      color: #6b7280;
+      padding-top: 4px;
+      margin: 0;
+    }
+
+    /* Related Ideas */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .related-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .related-card:hover {
+      border-color: #d1d5db;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transform: translateY(-2px);
+    }
+
+    .related-card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .related-category {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #22A86A;
+      background: rgba(34, 168, 106, 0.08);
+    }
+
+    .related-score {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #22A86A;
+    }
+
+    .related-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .related-card p {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .related-card-footer {
+      font-family: monospace;
+      font-size: 10px;
+      color: #9ca3af;
+      padding-top: 10px;
+      border-top: 1px dashed #e5e7eb;
+    }
+
+    .related-card-footer strong {
+      color: #22A86A;
+    }
+
+    /* Sidebar */
+    .detail-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sidebar-scores {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-score-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .sidebar-score-item:not(:last-child) {
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .sidebar-score-label {
+      font-size: 12px;
+      color: #6b7280;
+      flex: 1;
+    }
+
+    .sidebar-score-value {
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #1a1a1a;
+      width: 48px;
+      text-align: right;
+    }
+
+    .sidebar-score-bar {
+      width: 60px;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sidebar-score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .sidebar-score-bar-fill.green { background: #22A86A; }
+    .sidebar-score-bar-fill.amber { background: #E09B13; }
+
+    .sidebar-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px;
+      background: linear-gradient(180deg, #22A86A 0%, #1a8f5a 100%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .sidebar-cta:hover {
+      background: linear-gradient(180deg, #1a8f5a 0%, #167a4d 100%);
+    }
+
+    .sidebar-meta {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-meta-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+
+    .sidebar-meta-item:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-meta-label {
+      font-family: monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #9ca3af;
+    }
+
+    .sidebar-meta-value {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .sidebar-meta-value.green { color: #22A86A; }
+    .sidebar-meta-value.amber { color: #E09B13; }
+
+    /* Keyword Table */
+    .keyword-table {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .keyword-table-header {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 80px;
+      background: #f9fafb;
+    }
+
+    .keyword-table-header > div {
+      padding: 12px 20px;
+      font-family: monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+    }
+
+    .keyword-table-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 80px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .keyword-table-row:hover {
+      background: #f9fafb;
+    }
+
+    .keyword-table-row > div {
+      padding: 12px 20px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    .keyword-table-row .keyword-name {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .keyword-table-row .keyword-vol {
+      color: #6b7280;
+    }
+
+    .keyword-table-row .keyword-growth {
+      font-weight: 700;
+      color: #22A86A;
+    }
+
+    .keyword-table-row .keyword-comp {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .comp-bar {
+      flex: 1;
+      max-width: 50px;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .comp-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    .comp-bar-fill.low { background: #22A86A; width: 33%; }
+    .comp-bar-fill.medium { background: #E09B13; width: 66%; }
+    .comp-bar-fill.high { background: #EF4444; width: 100%; }
+
+    /* Proven Earners Card */
+    .proven-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: all 0.2s;
+    }
+
+    .proven-card:hover {
+      border-color: #d1d5db;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .proven-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .proven-card-header .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proven-card-header img {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+
+    .proven-card-header h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .proven-card-header .revenue {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: #22A86A;
+    }
+
+    .proven-card-header .revenue span {
+      font-size: 10px;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .proven-card p {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* FAQ Section */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faq-question:hover {
+      background: #f9fafb;
+    }
+
+    .faq-question .chevron {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px 16px 20px;
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.6;
+      display: none;
+      white-space: pre-wrap;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Sidebar Action Buttons */
+    .sidebar-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .sidebar-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .sidebar-action-btn:hover {
+      border-color: #d1d5db;
+      color: #1a1a1a;
+    }
+
+    /* On this page nav */
+    .sidebar-nav {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .sidebar-nav-title {
+      font-family: monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 11.5px;
+      color: #6b7280;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .sidebar-nav-item:hover {
+      background: #f9fafb;
+      color: #1a1a1a;
+    }
+
+    .sidebar-nav-num {
+      color: #9ca3af;
+      font-size: 10px;
+      width: 14px;
+    }
+
+    /* Peeklens CTA Card */
+    .peeklens-card {
+      background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+
+    .peeklens-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .peeklens-card p {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .peeklens-card p strong {
+      color: #1a1a1a;
+    }
+
+    .peeklens-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: #1a1a1a;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .peeklens-btn:hover {
+      background: #2a2a2a;
+    }
+
+    /* See all proven earners link */
+    .see-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    .see-all-link:hover {
+      color: #22A86A;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M10 3l-5 5 5 5"/>
+      </svg>
+      Back to ideas
+    </a>
+
+    <div class="detail-layout">
+      <div class="detail-main">
+        <h1 id="detail-title">Loading...</h1>
+
+        <div class="metrics-bar" id="detail-metrics">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- The Signal Section -->
+        <div class="section" id="section-signal">
+          <div class="section-header">
+            <h2 class="section-title">The <span class="accent">signal</span>.</h2>
+            <span class="section-num">01 — Trend</span>
+          </div>
+          <div id="signal-chart"></div>
+        </div>
+
+        <!-- The Brief Section -->
+        <div class="section" id="section-brief">
+          <div class="section-header">
+            <h2 class="section-title">The <span class="accent">brief</span>.</h2>
+            <span class="section-num">02 — Why now</span>
+          </div>
+          <div id="brief-content"></div>
+        </div>
+
+        <!-- Score Breakdown Section -->
+        <div class="section" id="section-scores">
+          <div class="section-header">
+            <h2 class="section-title">Score <span class="accent">breakdown</span>.</h2>
+            <span class="section-num" id="score-overall">03 — Why 8.3</span>
+          </div>
+          <div class="score-grid" id="score-grid"></div>
+        </div>
+
+        <!-- Source Signals Section -->
+        <div class="section" id="section-signals">
+          <div class="section-header">
+            <h2 class="section-title">Source <span class="accent">signals</span>.</h2>
+            <span class="section-num" id="signals-num">04 — 1 thread</span>
+          </div>
+          <div id="signals-content"></div>
+        </div>
+
+        <!-- Competition Section -->
+        <div class="section" id="section-comp">
+          <div class="section-header">
+            <h2 class="section-title">Who's <span class="accent">almost</span> doing this.</h2>
+            <span class="section-num">06 — Competition</span>
+          </div>
+          <div class="competitor-grid" id="competitor-grid"></div>
+        </div>
+
+        <!-- Keyword Data Section -->
+        <div class="section" id="section-keywords">
+          <div class="section-header">
+            <h2 class="section-title">Keyword <span class="accent">data</span>.</h2>
+            <span class="section-num">05 — SEO</span>
+          </div>
+          <div id="keyword-table"></div>
+        </div>
+
+        <!-- Build Path Section -->
+        <div class="section" id="section-build">
+          <div class="section-header">
+            <h2 class="section-title">A way to <span class="accent">start</span>.</h2>
+            <span class="section-num">07 — Build path</span>
+          </div>
+          <div class="build-steps" id="build-steps"></div>
+        </div>
+
+        <!-- Proof of Revenue Section -->
+        <div class="section" id="section-proven">
+          <p style="font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">Proof of revenue</p>
+          <p style="font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 20px;">Companies already making money in this space</p>
+          <div class="competitor-grid" id="proven-grid"></div>
+          <a href="https://businessideasdb.com/proven" target="_blank" class="see-all-link">
+            See all proven earners
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M6 3l5 5-5 5"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Peeklens CTA -->
+        <div class="peeklens-card" id="peeklens-cta"></div>
+
+        <!-- Related Ideas Section -->
+        <div class="section" id="section-related">
+          <div class="section-header">
+            <h2 class="section-title">Related <span class="accent">ideas</span>.</h2>
+            <span class="section-num">08 — Similar</span>
+          </div>
+          <div class="related-grid" id="related-grid"></div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="section" id="section-faq">
+          <div class="section-header">
+            <h2 class="section-title">Frequently asked <span class="accent">questions</span>.</h2>
+            <span class="section-num">09 — FAQ</span>
+          </div>
+          <div class="faq-list" id="faq-list"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="detail-sidebar">
+        <div class="sidebar-scores" id="sidebar-scores"></div>
+
+        <a href="#" class="sidebar-cta" id="sidebar-cta">
+          Start building this
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </a>
+
+        <div class="sidebar-actions">
+          <button class="sidebar-action-btn" onclick="toggleSave()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span>Save</span>
+          </button>
+          <button class="sidebar-action-btn" onclick="shareIdea()">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M12 5a2 2 0 100-4 2 2 0 000 4zM4 10a2 2 0 100-4 2 2 0 000 4zm8 5a2 2 0 100-4 2 2 0 000 4z"/>
+              <path d="M5.7 9l4.6 2.5M10.3 4.5L5.7 7"/>
+            </svg>
+            <span>Share</span>
+          </button>
+        </div>
+
+        <div class="sidebar-meta" id="sidebar-meta"></div>
+
+        <nav class="sidebar-nav">
+          <p class="sidebar-nav-title">On this page</p>
+          <a href="#section-signal" class="sidebar-nav-item"><span class="sidebar-nav-num">01</span>The signal</a>
+          <a href="#section-brief" class="sidebar-nav-item"><span class="sidebar-nav-num">02</span>The brief</a>
+          <a href="#section-scores" class="sidebar-nav-item"><span class="sidebar-nav-num">03</span>Score breakdown</a>
+          <a href="#section-signals" class="sidebar-nav-item"><span class="sidebar-nav-num">04</span>Source signals</a>
+          <a href="#section-keywords" class="sidebar-nav-item"><span class="sidebar-nav-num">05</span>Keyword data</a>
+          <a href="#section-comp" class="sidebar-nav-item"><span class="sidebar-nav-num">06</span>Competition</a>
+          <a href="#section-build" class="sidebar-nav-item"><span class="sidebar-nav-num">07</span>Build path</a>
+          <a href="#section-related" class="sidebar-nav-item"><span class="sidebar-nav-num">08</span>Related</a>
+          <a href="#section-faq" class="sidebar-nav-item"><span class="sidebar-nav-num">09</span>FAQ</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateChartPoints() {
+      const points = [];
+      let y = 20 + Math.random() * 5;
+      for (let i = 0; i <= 10; i++) {
+        const x = (i / 10) * 100;
+        y = Math.max(3, Math.min(25, y + (Math.random() - 0.4) * 5));
+        points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      }
+      return points.join(' ');
+    }
+
+    // Get slug from URL query string
+    function getSlug() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('slug');
+    }
+
+    // Load idea details
+    async function loadIdeaDetail(slug) {
+      document.getElementById('detail-title').textContent = 'Loading...';
+
+      try {
+        const response = await fetch(`/api/idea/${slug}`);
+        const idea = await response.json();
+        renderIdeaDetail(idea);
+        document.title = `${idea.title} — Business Ideas`;
+      } catch (error) {
+        console.error('Error loading idea details:', error);
+        document.getElementById('detail-title').textContent = 'Error loading idea';
+      }
+    }
+
+    // Render idea detail
+    function renderIdeaDetail(idea) {
+      // Title
+      document.getElementById('detail-title').textContent = idea.title;
+
+      // Metrics bar
+      document.getElementById('detail-metrics').innerHTML = `
+        <div class="metric-item">
+          <span class="metric-label">Keyword</span>
+          <span class="metric-value">${idea.metrics.keyword || idea.slug.replace(/-/g, ' ')}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Search Vol</span>
+          <span class="metric-value">${idea.metrics.volume}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Growth</span>
+          <span class="metric-value green">${idea.metrics.growth}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Competition</span>
+          <span class="metric-value">${idea.meta.difficulty === 'Low' ? 'Low' : idea.meta.difficulty === 'High' ? 'High' : 'Medium'}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Difficulty</span>
+          <span class="metric-value amber">${idea.meta.difficulty}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Revenue</span>
+          <span class="metric-value">${idea.meta.revenue || '$100K-$1M'}</span>
+        </div>
+      `;
+
+      // Signal section - keyword trend with chart
+      const chartPoints = generateChartPoints();
+      const polygonPoints = `0,28 ${chartPoints} 100,28`;
+      document.getElementById('signal-chart').innerHTML = `
+        <div style="background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: #9ca3af;">KEYWORD</span>
+              <span style="font-size: 13px; font-weight: 700; color: #1a1a1a; background: #f9fafb; padding: 3px 10px; border-radius: 6px; border: 1px solid #e5e7eb;">${idea.metrics.keyword || idea.slug.replace(/-/g, ' ')}</span>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 12px;">
+              <span style="font-family: monospace; font-size: 20px; font-weight: 800; color: #1a1a1a;">${idea.metrics.volume}</span>
+              <span style="font-family: monospace; font-size: 14px; font-weight: 700; color: #22A86A;">${idea.metrics.growth}</span>
+            </div>
+          </div>
+          <div style="height: 60px;">
+            <svg viewBox="0 0 100 28" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+              <defs>
+                <linearGradient id="signal-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#22A86A" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#22A86A" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <polygon points="${polygonPoints}" fill="url(#signal-grad)"/>
+              <polyline points="${chartPoints}" fill="none" stroke="#22A86A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      `;
+
+      // Brief section
+      let briefHTML = `<p>${idea.brief.main}</p>`;
+      if (idea.brief.whyNow) {
+        briefHTML += `<h3>Why now</h3><p class="sub-text">${idea.brief.whyNow}</p>`;
+      }
+      if (idea.brief.whoFor) {
+        briefHTML += `<h3>Who it's for</h3><p class="sub-text">${idea.brief.whoFor}</p>`;
+      }
+      if (idea.brief.whatExists) {
+        briefHTML += `<h3>What exists today</h3><p class="sub-text">${idea.brief.whatExists}</p>`;
+      }
+      idea.brief.additional.forEach(p => {
+        briefHTML += `<p class="sub-text">${p}</p>`;
+      });
+      document.getElementById('brief-content').innerHTML = briefHTML;
+
+      // Score breakdown
+      document.getElementById('score-overall').textContent = `03 — Why ${idea.scores.overall}`;
+
+      const scoreDescriptions = {
+        opportunity: 'Market potential, competitive landscape, and overall business opportunity.',
+        problem: 'How painful is the problem? Higher scores mean people are actively suffering and willing to pay.',
+        feasibility: 'How easy is this to build as an MVP? Considers technical complexity and time to first version.',
+        timing: 'Is now the right moment? Market trends, technology readiness, and cultural shifts.'
+      };
+
+      document.getElementById('score-grid').innerHTML = ['opportunity', 'problem', 'feasibility', 'timing'].map(key => {
+        const score = idea.scores[key];
+        const barColor = score >= 8 ? 'green' : 'amber';
+        return `
+          <div class="score-card">
+            <div class="score-card-header">
+              <span class="score-card-label">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+              <span class="score-card-value">${score}<span>/10</span></span>
+            </div>
+            <div class="score-bar">
+              <div class="score-bar-fill ${barColor}" style="width: ${score * 10}%"></div>
+            </div>
+            <p class="score-card-desc">${scoreDescriptions[key]}</p>
+          </div>
+        `;
+      }).join('');
+
+      // Source signals
+      if (idea.signal.subreddit) {
+        document.getElementById('signals-content').innerHTML = `
+          <div class="signal-card">
+            <div class="signal-card-header">
+              <span class="signal-subreddit">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="12" fill="#FF4500"/>
+                  <path d="M19.5 12a1.87 1.87 0 0 0-3.15-1.37A9.15 9.15 0 0 0 12 9.5c0-.05.02-2.59.05-2.74l1.85.37.01.05a1.31 1.31 0 1 0 .26-1.3l-2.3-.47a.33.33 0 0 0-.39.26L11.42 8v.04l-.01 1.6a9.2 9.2 0 0 0-4.56 1.24A1.87 1.87 0 1 0 4.5 12c0 .37.11.7.3 1a3.56 3.56 0 0 0-.03.44c0 2.28 2.65 4.13 5.92 4.13s5.92-1.85 5.92-4.13c0-.15-.01-.3-.04-.44.2-.3.3-.64.3-1zm-10.17 1a1.31 1.31 0 1 1 2.63 0 1.31 1.31 0 0 1-2.63 0zm7.28 2.75c-.9.88-2.63.95-4.62.95s-3.72-.07-4.62-.95a.28.28 0 0 1 .4-.4c.72.7 2.26.82 4.22.82s3.5-.12 4.22-.82a.28.28 0 0 1 .4.4zm-.35-1.44a1.31 1.31 0 1 1 0-2.63 1.31 1.31 0 0 1 0 2.63z" fill="#fff"/>
+                </svg>
+                r/${idea.signal.subreddit}
+              </span>
+              <span class="signal-stats">
+                <span>↑ <strong>${idea.signal.upvotes}</strong></span>
+                <span><strong>${idea.signal.comments}</strong> comments</span>
+              </span>
+            </div>
+            <h4>${idea.signal.title}</h4>
+            <p class="signal-quote">"${idea.signal.quote}"</p>
+          </div>
+        `;
+      }
+
+      // Competitors
+      document.getElementById('competitor-grid').innerHTML = idea.competitors.map(comp => `
+        <div class="competitor-card">
+          <div class="competitor-header">
+            <img src="https://www.google.com/s2/favicons?domain=${comp.domain}&sz=64" alt="${comp.name}">
+            <div>
+              <div class="competitor-name">${comp.name}</div>
+              <div class="competitor-domain">${comp.domain}</div>
+            </div>
+          </div>
+          <p>${comp.description}</p>
+          <div class="competitor-footer">
+            <span class="competitor-price">${comp.price}</span>
+            <a href="https://${comp.domain}" target="_blank" class="competitor-link">Visit →</a>
+          </div>
+        </div>
+      `).join('');
+
+      // Keyword data table
+      if (idea.keywordData && idea.keywordData.length > 0) {
+        document.getElementById('keyword-table').innerHTML = `
+          <div class="keyword-table">
+            <div class="keyword-table-header">
+              <div>Keyword</div>
+              <div>Volume</div>
+              <div>Growth</div>
+              <div>Comp</div>
+            </div>
+            ${idea.keywordData.map(kw => `
+              <div class="keyword-table-row">
+                <div class="keyword-name">${kw.keyword}</div>
+                <div class="keyword-vol">${kw.volume}</div>
+                <div class="keyword-growth">${kw.growth}</div>
+                <div class="keyword-comp">
+                  <div class="comp-bar">
+                    <div class="comp-bar-fill ${kw.competition.toLowerCase()}"></div>
+                  </div>
+                  <span style="font-size: 10px; color: #9ca3af;">${kw.competition}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        document.getElementById('keyword-table').innerHTML = '<p style="color: #9ca3af;">No keyword data available</p>';
+      }
+
+      // Build steps
+      document.getElementById('build-steps').innerHTML = idea.buildSteps.map((step, i) => `
+        <div class="build-step">
+          <span class="build-step-num">${String(i + 1).padStart(2, '0')}</span>
+          <p>${step}</p>
+        </div>
+      `).join('');
+
+      // Proven earners
+      if (idea.provenEarners && idea.provenEarners.length > 0) {
+        document.getElementById('proven-grid').innerHTML = idea.provenEarners.map(pe => `
+          <div class="proven-card">
+            <div class="proven-card-header">
+              <div class="name-row">
+                <img src="https://www.google.com/s2/favicons?domain=${pe.domain}&sz=32" alt="${pe.name}">
+                <h3>${pe.name}</h3>
+              </div>
+              <span class="revenue">${pe.revenue.replace('/mo', '')}<span>/mo</span></span>
+            </div>
+            <p>${pe.description}</p>
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('proven-grid').innerHTML = '<p style="color: #9ca3af;">No proven earners data available</p>';
+      }
+
+      // Related ideas
+      document.getElementById('related-grid').innerHTML = idea.relatedIdeas.map(rel => `
+        <a class="related-card" href="detail.html?slug=${encodeURIComponent(rel.slug)}">
+          <div class="related-card-header">
+            <span class="related-category">SaaS</span>
+            <span class="related-score">${rel.score}</span>
+          </div>
+          <h4>${rel.title}</h4>
+          <p>${rel.description}</p>
+          <div class="related-card-footer">
+            ${rel.volume} vol · <strong>${rel.growth}</strong>
+          </div>
+        </a>
+      `).join('');
+
+      // Sidebar scores
+      document.getElementById('sidebar-scores').innerHTML = ['opportunity', 'problem', 'feasibility', 'timing'].map(key => {
+        const score = idea.scores[key];
+        const barColor = score >= 8 ? 'green' : 'amber';
+        return `
+          <div class="sidebar-score-item">
+            <span class="sidebar-score-label">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+            <div class="sidebar-score-bar">
+              <div class="sidebar-score-bar-fill ${barColor}" style="width: ${score * 10}%"></div>
+            </div>
+            <span class="sidebar-score-value">${score}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Sidebar meta
+      document.getElementById('sidebar-meta').innerHTML = `
+        <div class="sidebar-meta-item">
+          <span class="sidebar-meta-label">Added</span>
+          <span class="sidebar-meta-value">${idea.meta.added}</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="sidebar-meta-label">Category</span>
+          <span class="sidebar-meta-value">${idea.meta.category}</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="sidebar-meta-label">Difficulty</span>
+          <span class="sidebar-meta-value amber">${idea.meta.difficulty}</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="sidebar-meta-label">Revenue</span>
+          <span class="sidebar-meta-value">${idea.meta.revenue || '$100K-$1M'}</span>
+        </div>
+        <div class="sidebar-meta-item">
+          <span class="sidebar-meta-label">Signals</span>
+          <span class="sidebar-meta-value green">${idea.meta.signalPosts || 1} posts</span>
+        </div>
+      `;
+
+      // Update Source signals number
+      const signalsNum = document.getElementById('signals-num');
+      if (signalsNum) {
+        const postCount = idea.meta.signalPosts || 1;
+        signalsNum.textContent = `04 — ${postCount} ${postCount === 1 ? 'thread' : 'threads'}`;
+      }
+
+      // Peeklens CTA
+      const peeklens = document.getElementById('peeklens-cta');
+      if (peeklens && idea.metrics.keyword) {
+        peeklens.innerHTML = `
+          <h3>Find customers for this idea</h3>
+          <p>Score Reddit threads about <strong>${idea.metrics.keyword}</strong> by buying intent with Peeklens</p>
+          <a href="https://peeklens.com" target="_blank" class="peeklens-btn">
+            Try Peeklens
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+        `;
+      }
+
+      // FAQ
+      const faqList = document.getElementById('faq-list');
+      if (faqList && idea.faqs && idea.faqs.length > 0) {
+        faqList.innerHTML = idea.faqs.map((faq, i) => `
+          <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+              <span>${faq.question}</span>
+              <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M4 6l4 4 4-4"/>
+              </svg>
+            </div>
+            <div class="faq-answer">${faq.answer}</div>
+          </div>
+        `).join('');
+      } else {
+        document.getElementById('section-faq').style.display = 'none';
+      }
+
+      // Update CTA
+      document.getElementById('sidebar-cta').href = `https://businessideasdb.com/building`;
+    }
+
+    function toggleSave() {
+      alert('Save feature - integrated with the Bookmarks feature on businessideasdb.com');
+    }
+
+    function shareIdea() {
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({title: document.getElementById('detail-title').textContent, url});
+      } else {
+        navigator.clipboard.writeText(url);
+        alert('URL copied to clipboard!');
+      }
+    }
+
+    // Initial load
+    const slug = getSlug();
+    if (slug) {
+      loadIdeaDetail(slug);
+    } else {
+      document.getElementById('detail-title').textContent = 'No idea selected';
+      document.querySelector('.detail-layout').innerHTML = '<div class="loading">No idea slug provided. <a href="index.html">Go back to the list</a>.</div>';
+    }
+  </script>
+</body>
+</html>
