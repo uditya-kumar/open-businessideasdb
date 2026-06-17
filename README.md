@@ -24,7 +24,7 @@ A lightweight **Express** server that fetches business ideas live from `business
 
 ## Screenshots
 
-https://github.com/user-attachments/assets/db078f65-1a02-4e93-a71e-d82c52b8957b
+![Screenshot](https://github.com/user-attachments/assets/db078f65-1a02-4e93-a71e-d82c52b8957b)
 
 ## Features
 
