@@ -18,6 +18,8 @@
 
 ## Overview
 
+> This project is for educational purposes only.
+
 A lightweight **Express** server that fetches business ideas live from `businessideasdb.com`, parses the Next.js **RSC** payload server-side, and exposes a clean JSON API consumed by two static pages — a **list view** and an **idea detail view**.
 
 ## Features
@@ -68,10 +70,14 @@ businessideas-viewer/
 └── package.json
 ```
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 <div align="center">
 
 ---
 
-<sub>Built with ☕ and Node.js</sub>
+<sub>Built with Node.js</sub>
 
 </div>
