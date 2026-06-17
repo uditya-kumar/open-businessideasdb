@@ -22,6 +22,10 @@
 
 A lightweight **Express** server that fetches business ideas live from `businessideasdb.com`, parses the Next.js **RSC** payload server-side, and exposes a clean JSON API consumed by two static pages — a **list view** and an **idea detail view**.
 
+## Screenshots
+
+https://github.com/user-attachments/assets/db078f65-1a02-4e93-a71e-d82c52b8957b
+
 ## Features
 
 - **List page** — paginated grid of all 73 ideas with category, signal, competitors, tags, volume, growth & a trend chart
@@ -47,7 +51,7 @@ npm install
 npm start
 
 # 3. Open in browser
-# → http://localhost:3000
+# http://localhost:3000
 ```
 
 > [!NOTE]
